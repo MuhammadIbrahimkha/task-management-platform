@@ -38,7 +38,7 @@ Do not assume Visual Studio IDE is being used. All editor instructions must be s
 
 For every milestone:
 
-1. Read `PROJECT.md`, `ARCHITECTURE.md`, and the relevant repository instructions.
+1. Read `project.md`, `architecture.md`, and the relevant repository instructions.
 2. Inspect existing files before changing them.
 3. State the intended changes and important design decisions.
 4. Implement only the current milestone.
@@ -57,10 +57,10 @@ Do not overwrite working code or introduce unrelated refactoring without a clear
 Establish project conventions and repository documentation before feature development.
 
 ### Tasks
-- Create and maintain `PROJECT.md`.
-- Create and maintain `ARCHITECTURE.md`.
-- Create and maintain this `IMPLEMENTATION_PLAN.md`.
-- Create `DEFINITION_OF_DONE.md`.
+- Create and maintain `project.md`.
+- Create and maintain `architecture.md`.
+- Create and maintain this `implementation_plan.md`.
+- Create `definition_of_done.md`.
 - Create `.github/copilot-instructions.md`.
 - Add an appropriate `.gitignore`.
 - Add a clear root `README.md`.
@@ -99,7 +99,7 @@ Configure:
 - React Testing Library
 
 ### Tasks
-- Establish project references according to `ARCHITECTURE.md`.
+- Establish project references according to `architecture.md`.
 - Configure dependency injection.
 - Add a basic API health endpoint.
 - Add a basic frontend application shell.

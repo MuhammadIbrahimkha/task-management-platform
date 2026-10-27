@@ -14,7 +14,7 @@ A task or feature is complete only when all applicable requirements below are sa
 
 ## 2. Architecture
 
-- [ ] Dependencies respect `ARCHITECTURE.md`.
+- [ ] Dependencies respect `architecture.md`.
 - [ ] Domain logic does not depend on infrastructure, databases, HTTP, or UI frameworks.
 - [ ] Application use cases do not depend directly on ASP.NET Core or EF Core implementations.
 - [ ] Infrastructure contains persistence and external technology implementations.

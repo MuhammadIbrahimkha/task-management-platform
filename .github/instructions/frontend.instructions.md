@@ -6,7 +6,7 @@ applyTo: "frontend/**/*.{ts,tsx,css,scss}"
 
 ## Framework and structure
 - Use React, TypeScript, and Vite.
-- Follow the root Copilot instructions and `ARCHITECTURE.md`.
+- Follow the root Copilot instructions and `architecture.md`.
 - Organize code by feature and responsibility.
 - Use functional components and React hooks.
 - Keep components focused and manageable.

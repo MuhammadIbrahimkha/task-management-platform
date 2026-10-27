@@ -7,7 +7,7 @@ agent: agent
 Implement the task described by the user.
 
 Before making changes:
-1. Read `PROJECT.md`, `ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, and `DEFINITION_OF_DONE.md`.
+1. Read `project.md`, `architecture.md`, `implementation_plan.md`, and `definition_of_done.md`.
 2. Read `.github/copilot-instructions.md` and any applicable scoped instructions.
 3. Inspect the existing code and identify the current milestone.
 4. Identify acceptance criteria, dependencies, and affected layers.

@@ -7,7 +7,7 @@ agent: agent
 Add or improve automated tests for the behavior requested by the user.
 
 Before writing tests:
-1. Read `DEFINITION_OF_DONE.md` and relevant project instructions.
+1. Read `definition_of_done.md` and relevant project instructions.
 2. Inspect the implementation and existing test conventions.
 3. Identify the expected behavior and important failure cases.
 4. Choose the appropriate test level.

@@ -5,7 +5,7 @@ applyTo: "backend/**/*.cs"
 # Backend Instructions
 
 ## Architecture
-- Follow `ARCHITECTURE.md` and the root Copilot instructions.
+- Follow `architecture.md` and the root Copilot instructions.
 - Keep Domain, Application, Infrastructure, and API responsibilities separate.
 - Domain must not depend on ASP.NET Core, EF Core, or Infrastructure.
 - Application contains use cases and abstractions, not HTTP-specific behavior.

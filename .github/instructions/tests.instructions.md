@@ -5,7 +5,7 @@ applyTo: "**/*Tests/**/*.cs,**/*.Tests/**/*.cs,**/*.test.{ts,tsx},**/*.spec.{ts,
 # Testing Instructions
 
 ## General
-- Follow `DEFINITION_OF_DONE.md`.
+- Follow `definition_of_done.md`.
 - Test observable behavior and meaningful requirements.
 - Include success cases, failure cases, boundary conditions, and authorization failures where relevant.
 - Keep tests deterministic and independent.

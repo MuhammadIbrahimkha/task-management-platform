@@ -6,10 +6,10 @@ This repository contains a full-stack Task Management Platform being built as an
 
 Before substantial implementation work, read these documents:
 
-- `PROJECT.md` — product vision, scope, requirements, and acceptance criteria.
-- `ARCHITECTURE.md` — architecture boundaries and technical decisions.
-- `IMPLEMENTATION_PLAN.md` — milestones and implementation sequence.
-- `DEFINITION_OF_DONE.md` — quality and completion requirements.
+- `project.md` — product vision, scope, requirements, and acceptance criteria.
+- `architecture.md` — architecture boundaries and technical decisions.
+- `implementation_plan.md` — milestones and implementation sequence.
+- `definition_of_done.md` — quality and completion requirements.
 
 Follow these documents. If they conflict or a requirement is ambiguous, identify the conflict and ask for clarification before making consequential changes.
 
@@ -56,7 +56,7 @@ If the requested task depends on missing foundational work, explain the dependen
 
 ## 4. Architecture Rules
 
-Follow `ARCHITECTURE.md` and maintain Clean Architecture principles within a modular monolith.
+Follow `architecture.md` and maintain Clean Architecture principles within a modular monolith.
 
 ### Domain
 - Contains business entities, value objects, domain rules, and invariants.
@@ -163,7 +163,7 @@ Do not introduce microservices or unnecessary abstraction layers.
 
 ## 10. Testing Requirements
 
-Follow `DEFINITION_OF_DONE.md`.
+Follow `definition_of_done.md`.
 
 ### Backend
 - Use xUnit for unit tests.
