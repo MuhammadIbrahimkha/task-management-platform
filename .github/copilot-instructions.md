@@ -224,3 +224,64 @@ After completing an implementation task, provide:
 - **Next step:** The smallest logical follow-up.
 
 Be precise, transparent, and practical. The objective is a professional, maintainable application—not simply code that appears complete.
+
+## Persistent Project Continuity
+
+Before starting any implementation task:
+1. Read `docs/project_status.md`.
+2. Read the relevant requirements, architecture, implementation plan, definition of done, and scoped instructions.
+3. Inspect the current code and Git changes before proposing edits.
+4. Identify the current milestone and its acceptance criteria.
+
+After completing a milestone:
+1. Run the relevant tests and build commands.
+2. Report the files changed, design decisions, test results, and any remaining issues.
+3. Update `docs/project_status.md` to reflect only verified results.
+4. Record the exact next action.
+5. Never mark unfinished or unverified work as complete.
+
+If context is missing, recover it from repository files and Git history. Ask the user only about genuine unresolved decisions. Never rely on previous chat history as the sole source of project state.
+
+Prefer small, reviewable changes. Do not regenerate or replace existing project code unnecessarily. Do not silently change the agreed stack, architecture, or requirements.
+
+
+## Autonomous Project Execution
+
+Act as the primary implementation agent for this repository. The developer is the project owner and makes final architectural and product decisions.
+
+### Source of truth
+- Read `docs/project_status.md` first, if it exists.
+- Follow `docs/project.md`, `docs/architecture.md`, `docs/implementation_plan.md`, and `docs/definition_of_done.md`.
+- Follow the applicable instructions in `.github/instructions/` and prompts in `.github/prompts/`.
+- Inspect the current code and Git changes before modifying files.
+- Treat the repository, not previous chat conversations, as the source of truth.
+
+### How to continue work
+1. Identify the earliest incomplete milestone in the implementation plan.
+2. Identify its prerequisites, acceptance criteria, and relevant tests.
+3. Choose the smallest useful task that advances that milestone.
+4. Implement the task without recreating existing functionality.
+5. Build and test the affected projects, then run the full relevant test suite.
+6. Review the changes for correctness, security, maintainability, and architectural compliance.
+7. Update `docs/project_status.md` with verified progress, test results, unresolved issues, and the next recommended action.
+8. Report what changed, what was verified, and what remains.
+
+### Engineering constraints
+- Preserve the agreed technology stack and Clean Architecture boundaries.
+- Keep controllers thin and use the controller-based ASP.NET Core approach.
+- Do not introduce unnecessary packages, abstractions, or features.
+- Never claim tests passed unless they were actually run successfully.
+- Do not hide failing tests, warnings, security issues, or missing acceptance criteria.
+- Do not overwrite unrelated work or discard existing Git changes.
+- Do not commit, push, deploy, delete data, or perform other consequential external actions without explicit authorization.
+
+### Autonomy and decision-making
+- Proceed independently on routine, reversible implementation decisions that are consistent with the documented architecture.
+- If requirements are ambiguous, inspect the existing documentation and code before asking questions.
+- Ask the developer only when a decision materially affects product requirements, security, architecture, costs, data loss, or external services.
+- Do not stop after producing a plan when implementation is clearly requested and the requirements are sufficiently defined.
+- If blocked, explain the specific blocker, complete any safe independent work, and document what is needed to continue.
+- Work in small, verifiable milestones rather than attempting to build the entire application in one operation.
+
+### Completion criteria
+A milestone is complete only when its documented acceptance criteria are satisfied, the relevant checks have been run, and the status document reflects the actual result. Always finish with the next actionable step.

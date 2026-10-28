@@ -4,7 +4,7 @@ A full-stack task management application built as an independent portfolio proje
 
 ## Project Status
 
-**Current phase:** Documentation and project foundation.
+**Current phase:** Application scaffolding. The API health endpoint and frontend shell are in place; product workflows are not implemented yet.
 
 The application is being developed incrementally. Features will be implemented, tested, and documented milestone by milestone.
 
@@ -48,6 +48,19 @@ task-management-platform/
 │   ├── instructions/
 │   ├── prompts/
 │   └── copilot-instructions.md
+├── backend/
+│   ├── src/
+│   │   ├── TaskManagement.Api/
+│   │   ├── TaskManagement.Application/
+│   │   ├── TaskManagement.Domain/
+│   │   └── TaskManagement.Infrastructure/
+│   ├── tests/
+│   │   ├── TaskManagement.IntegrationTests/
+│   │   └── TaskManagement.UnitTests/
+│   └── TaskManagement.slnx
+├── frontend/
+│   ├── src/
+│   └── package.json
 ├── docs/
 │   ├── architecture.md
 │   ├── definition_of_done.md
@@ -57,7 +70,36 @@ task-management-platform/
 └── README.md
 ```
 
-The backend and frontend application directories will be added during the scaffolding milestone.
+## Local Development
+
+### Backend API
+
+From the repository root:
+
+```powershell
+dotnet run --project backend/src/TaskManagement.Api/TaskManagement.Api.csproj
+```
+
+### Frontend
+
+Use Node.js 20.19 or later in the 20.x line, or 22.12 or later. From the repository root:
+
+```powershell
+Set-Location frontend
+npm ci
+npm run dev
+```
+
+In the frontend directory, run the available checks with:
+
+```powershell
+npm run lint
+npm run format:check
+npm test
+npm run build
+```
+
+The frontend does not call the API yet, so it has no environment variables to configure. Database and API configuration will be documented when those integrations are implemented.
 
 ## Documentation
 
@@ -70,7 +112,7 @@ The backend and frontend application directories will be added during the scaffo
 
 The project is developed using Visual Studio Code, Git, GitHub, and GitHub Copilot.
 
-Detailed setup instructions will be added as the backend and frontend are scaffolded.
+The project is under active development. See [Project Status](docs/project_status.md) for verified progress and the next task.
 
 ## Current Scope
 
