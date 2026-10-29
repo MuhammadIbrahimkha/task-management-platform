@@ -1,83 +1,55 @@
 # Implementation Plan
 
-## 1. Purpose
+## 1. Purpose and Delivery Order
 
 Build the Task Management Platform incrementally as a secure, maintainable, tested full-stack application suitable for a professional portfolio.
 
-Every milestone must leave the repository in a coherent state. Do not implement the entire application in one large change.
+Work proceeds in three sequential phases:
+
+1. Complete and verify the backend.
+2. Complete and verify the frontend against its agreed API contracts.
+3. Integrate the frontend and backend, then verify end-to-end user journeys.
+
+The existing frontend shell is scaffolding only. Do not add frontend features or connect it to the API while the backend phase is active.
 
 ## 2. Technology Stack
 
 ### Backend
-- .NET 10 LTS
-- ASP.NET Core Web API
+- .NET 10 LTS and ASP.NET Core Controllers
 - C#
-- Entity Framework Core
-- SQL Server, with Azure SQL as a future deployment target
-- Clean Architecture principles using a modular monolith
-- xUnit for automated tests
-- ASP.NET Core integration testing with `Microsoft.AspNetCore.Mvc.Testing`
+- Entity Framework Core and SQL Server, with Azure SQL as a future deployment target
+- Clean Architecture principles in a modular monolith
+- xUnit and ASP.NET Core integration testing
 
 ### Frontend
-- React
-- TypeScript with strict type checking
-- Vite
-- A consistent, accessible component and styling system
-- Vitest
-- React Testing Library
-- Playwright for end-to-end tests
+- React, TypeScript with strict type checking, and Vite
+- An accessible component and styling system
+- Vitest, React Testing Library, and Playwright
 
 ### Development Environment
-- Visual Studio Code
-- Git and GitHub
-- GitHub Copilot for implementation assistance
-
-Do not assume Visual Studio IDE is being used. All editor instructions must be suitable for VS Code and its integrated terminal.
+- Visual Studio Code, Git, GitHub, and GitHub Copilot
+- All editor and terminal instructions must work in VS Code; do not assume Visual Studio IDE.
 
 ## 3. Milestone Rules
 
-For every milestone:
+1. Read the relevant requirements, architecture, status, and scoped instructions.
+2. Inspect existing files and Git changes before editing.
+3. State the intended change and important design decisions before substantial work.
+4. Implement only the current phase and milestone.
+5. Add or update meaningful automated tests.
+6. Run relevant builds and tests; report the commands and actual outcomes.
+7. Update `docs/project_status.md` after each completed implementation step with verified progress, results, unresolved issues, and the next action.
+8. Do not claim a check passed unless it was run successfully.
+9. Preserve existing behavior and unrelated work.
+10. Do not apply a database migration without explicit approval from the project owner. Generating a migration file does not authorize applying it to any database.
 
-1. Read `project.md`, `architecture.md`, and the relevant repository instructions.
-2. Inspect existing files before changing them.
-3. State the intended changes and important design decisions.
-4. Implement only the current milestone.
-5. Add or update automated tests.
-6. Run the relevant build, lint, type-check, and test commands.
-7. Fix failures introduced by the changes.
-8. Update documentation when behavior or setup changes.
-9. Summarize files changed, commands executed, results, and remaining issues.
-10. Do not claim a command or test passed unless it was actually run and passed.
+## 4. Phase One — Backend Completion
 
-Do not overwrite working code or introduce unrelated refactoring without a clear reason.
+The backend phase is the only active implementation phase until its milestones and backend verification are complete. Keep Domain independent from ASP.NET Core, EF Core, SQL Server, and Infrastructure. Application depends on Domain, Infrastructure implements application abstractions, and the API composes the layers and handles HTTP concerns.
 
-## 4. Milestone 0 — Repository Foundation
+### Backend Milestone 0 — Repository and Solution Foundation
 
-### Goals
-Establish project conventions and repository documentation before feature development.
-
-### Tasks
-- Create and maintain `project.md`.
-- Create and maintain `architecture.md`.
-- Create and maintain this `implementation_plan.md`.
-- Create `definition_of_done.md`.
-- Create `.github/copilot-instructions.md`.
-- Add an appropriate `.gitignore`.
-- Add a clear root `README.md`.
-- Establish the intended folder and project structure.
-- Record important architectural decisions in `docs/decisions/`.
-
-### Acceptance Criteria
-- The repository purpose and scope are documented.
-- Architecture boundaries are documented.
-- The implementation sequence is clear.
-- Instructions for Copilot are available.
-- No application features are implemented prematurely.
-
-## 5. Milestone 1 — Solution and Application Scaffolding
-
-### Backend
-Create the following projects:
+Establish the repository documentation and the backend projects:
 
 - `TaskManagement.Domain`
 - `TaskManagement.Application`
@@ -86,229 +58,173 @@ Create the following projects:
 - `TaskManagement.UnitTests`
 - `TaskManagement.IntegrationTests`
 
-Use a solution named `TaskManagement.sln`.
+Acceptance criteria:
+- Architecture and scope are documented.
+- Project references follow `architecture.md`.
+- The backend solution builds and initial tests pass.
+- The API health endpoint works.
 
-### Frontend
-Create the React + TypeScript + Vite application in a clearly named frontend directory, such as `frontend/`.
+### Backend Milestone 1 — Persistence and Database Foundations
 
-Configure:
-- TypeScript strict mode
-- ESLint
-- Consistent formatting
-- Vitest
-- React Testing Library
+Tasks:
+- Configure EF Core with SQL Server in Infrastructure.
+- Define `ApplicationDbContext` and explicit entity mappings.
+- Externalize connection settings; keep credentials out of source control.
+- Add the initial EF migration and document database setup and migration commands.
+- Add meaningful persistence verification, using a relational database when relational behavior is under test.
+- Keep EF Core out of Domain and Application.
 
-### Tasks
-- Establish project references according to `architecture.md`.
-- Configure dependency injection.
-- Add a basic API health endpoint.
-- Add a basic frontend application shell.
-- Add environment-variable examples without real secrets.
-- Document local setup commands.
+Acceptance criteria:
+- The API can use a configured SQL Server connection.
+- Migration generation and database setup are documented.
+- Persistence configuration and mappings are covered by tests.
+- No migration is applied without explicit project-owner approval.
 
-### Acceptance Criteria
-- The backend builds successfully.
-- The frontend installs and builds successfully.
-- The API health endpoint responds successfully.
-- The frontend renders without runtime errors.
-- Initial automated tests pass.
-- A new developer can follow the setup documentation.
+### Backend Milestone 2 — Authentication and Authorization
 
-## 6. Milestone 2 — Persistence and Database Foundations
-
-### Tasks
-- Configure EF Core with SQL Server.
-- Define the initial `ApplicationDbContext`.
-- Configure entity mappings explicitly where appropriate.
-- Establish database configuration using environment variables or development user secrets.
-- Add the initial database migration.
-- Document how to create and update the local database.
-- Establish a consistent persistence approach.
-
-### Acceptance Criteria
-- The API can connect to a configured SQL Server instance.
-- Database migrations can be created and applied.
-- Database credentials are not committed.
-- Persistence-related tests cover meaningful behavior.
-- Domain and Application layers do not depend on EF Core.
-
-## 7. Milestone 3 — Authentication and Authorization
-
-### Tasks
-- Implement registration, login, and logout.
+Tasks:
 - Select and document a browser-appropriate authentication strategy before implementation.
-- Use secure password hashing through established framework facilities.
-- Implement authentication and authorization policies.
-- Protect authenticated endpoints.
-- Ensure users cannot access another user's private resources.
-- Add validation and safe authentication error responses.
-- Test authentication success, failure, and authorization boundaries.
+- Implement registration, login, and logout, using established secure password hashing.
+- Configure authentication and authorization in the API.
+- Protect private operations and enforce ownership server-side.
+- Return safe validation, authentication, and authorization errors.
+- Test successful and denied access, including cross-user access attempts.
 
-### Important Security Requirement
-Do not automatically store bearer tokens in browser `localStorage`. Evaluate a secure HTTP-only cookie approach or another appropriate design, considering CSRF protection, deployment topology, and API access patterns. Record the decision before implementation.
+Security requirements:
+- Do not store bearer tokens in browser `localStorage` by default.
+- For cookie authentication, address CSRF protection and secure cookie settings.
+- Never trust client-supplied user IDs to establish ownership.
+- Never log passwords, tokens, or secrets.
 
-### Acceptance Criteria
-- Users can register and authenticate.
-- Invalid credentials are rejected safely.
-- Protected endpoints reject unauthenticated requests.
-- Authorization is enforced on the server.
-- Cross-user resource access is prevented and tested.
-- Secrets and passwords are never logged.
+Acceptance criteria:
+- Authentication succeeds and fails safely.
+- Protected operations reject unauthenticated users.
+- Users cannot read or modify another user's private resources.
+- Security boundaries are covered by automated tests.
 
-## 8. Milestone 4 — Core Domain and Task Management
+### Backend Milestone 3 — Core Task Management API
 
-### Tasks
-- Implement the Task domain model and its invariants.
-- Support task creation, reading, updating, and deletion.
-- Support statuses: To Do, In Progress, Completed.
-- Support priorities: Low, Medium, High.
-- Support descriptions and due dates.
-- Add server-side validation.
-- Implement application use cases and persistence.
-- Expose appropriately secured API endpoints.
-- Use request and response DTOs rather than exposing persistence entities.
-- Add pagination, filtering, sorting, and search.
-- Add unit and integration tests.
+The TaskItem entity, status and priority enums, and domain invariants have already been implemented; do not recreate them.
 
-### Acceptance Criteria
-- Authenticated users can manage their own tasks.
-- Invalid task data is rejected consistently.
-- Task ownership is enforced on every relevant operation.
-- Filtering, sorting, pagination, and search behave predictably.
-- API errors follow a consistent format.
-- Automated tests cover success paths and important failure cases.
+Tasks:
+- Implement Application use cases and persistence abstractions for task workflows.
+- Implement task create, read, update, and delete operations.
+- Expose controller endpoints with explicit request/response DTOs.
+- Support status, priority, description, and due date.
+- Validate inputs, enforce task ownership, and use consistent Problem Details errors.
+- Add pagination, filtering, sorting, and search for task collections.
+- Add unit and API integration tests for success, validation, and authorization cases.
 
-## 9. Milestone 5 — Projects and Categories
+Acceptance criteria:
+- Authenticated users can manage only their own tasks.
+- Invalid input is rejected consistently.
+- Collection queries are bounded and behave predictably.
+- API contracts do not expose EF Core entities.
 
-### Tasks
-- Implement projects and task categories.
-- Associate tasks with the appropriate project and category.
-- Validate relationships on the server.
-- Enforce ownership and access rules.
-- Support creating, editing, listing, and deleting projects and categories where appropriate.
-- Define what happens to related tasks when a project or category is removed.
-- Add automated tests for relationship and authorization rules.
+### Backend Milestone 4 — Projects and Categories
 
-### Acceptance Criteria
-- Tasks can be organized using projects and categories.
+Tasks:
+- Implement project and category domain/application/persistence/API behavior.
+- Associate tasks with valid projects and categories.
+- Define delete behavior for related tasks.
+- Enforce ownership and access rules for every relationship.
+- Test valid and invalid relationships, deletion behavior, and unauthorized access.
+
+Acceptance criteria:
+- Tasks can be organized into projects and categories.
 - Invalid or unauthorized relationships are rejected.
-- Data integrity is preserved.
-- Delete behavior is explicitly defined and tested.
+- Data integrity and delete behavior are tested.
 
-## 10. Milestone 6 — Dashboard and Reporting
+### Backend Milestone 5 — Dashboard and Reporting API
 
-### Tasks
-- Implement task summary queries.
-- Provide counts for total, To Do, In Progress, and Completed tasks.
+Tasks:
+- Return task counts by status and priority.
 - Provide upcoming and overdue task summaries.
-- Scope all results to the authenticated user and authorized projects.
-- Avoid unnecessary database queries.
-- Add tests for date boundaries and user isolation.
+- Scope every result to the authenticated user and authorized projects.
+- Avoid unnecessary queries and cover date boundaries and user isolation with tests.
 
-### Acceptance Criteria
-- Dashboard values agree with the underlying task data.
-- Overdue and upcoming tasks are calculated consistently.
-- Dashboard responses do not expose unauthorized data.
+Acceptance criteria:
+- Dashboard results agree with underlying task data.
+- Date calculations are consistent.
+- Unauthorized data is never included.
 
-## 11. Milestone 7 — Frontend Foundation and Authentication UX
+### Backend Milestone 6 — Backend Verification and Contract Readiness
 
-### Tasks
-- Establish feature-based frontend organization.
-- Create shared layout and reusable UI components.
-- Implement registration, login, and logout screens.
-- Add loading, error, empty, and success states.
-- Add route protection appropriate to the selected authentication strategy.
-- Implement accessible forms and validation feedback.
-- Add component and interaction tests.
+Tasks:
+- Run backend unit, integration, and relational persistence tests.
+- Review validation, authorization, error handling, logging, and secret management.
+- Review pagination and query behavior.
+- Verify API documentation and setup instructions.
+- Resolve backend defects before beginning frontend feature work.
 
-### Acceptance Criteria
-- Authentication flows work against the API.
-- Forms are accessible and usable on different screen sizes.
-- API failures are communicated clearly.
-- Authentication state is handled consistently.
+Acceptance criteria:
+- Backend builds and relevant automated tests pass.
+- Critical API and persistence workflows are covered.
+- API contracts are stable and documented for frontend implementation.
+- Known limitations are recorded honestly.
 
-## 12. Milestone 8 — Task Management UX
+## 5. Phase Two — Frontend Completion
 
-### Tasks
-- Implement task list and task detail views.
-- Implement create and edit forms.
-- Implement status and priority controls.
-- Add search, filters, sorting, and pagination.
-- Add project and category selection.
+Begin only after Phase One is complete. The current React/TypeScript/Vite scaffold and welcome screen do not count as completed product features. Do not connect frontend API calls until Phase Three.
+
+### Frontend Milestone 1 — Authentication UX
+
+- Organize frontend code by feature and responsibility.
+- Implement registration, login, logout, and accessible form feedback based on the backend authentication contract.
+- Handle loading, success, and safe error states.
+- Test observable behavior and validation.
+
+### Frontend Milestone 2 — Task Management UX
+
+- Implement task list, details, create, and edit workflows.
+- Add status, priority, due date, project/category selection, search, filters, sorting, and pagination.
 - Provide loading, empty, error, and success states.
-- Implement a responsive layout.
-- Add a board-style view when the core list workflow is stable.
+- Support keyboard navigation and responsive layouts.
 - Add component and interaction tests.
 
-### Acceptance Criteria
-- Users can complete the main task workflow through the UI.
-- The UI reflects server-confirmed changes.
-- Forms handle invalid input and API errors.
-- Keyboard navigation and visible focus states are supported.
-- The interface works at mobile and desktop sizes.
+### Frontend Milestone 3 — Dashboard and UX Quality
 
-## 13. Milestone 9 — Dashboard and Final UX Polish
-
-### Tasks
-- Build the dashboard.
-- Show task summaries and upcoming or overdue tasks.
-- Improve navigation and information hierarchy.
-- Standardize spacing, typography, colors, and reusable components.
-- Add suitable feedback for important actions.
+- Implement dashboard summaries against the documented backend contract.
+- Improve navigation and consistent visual presentation.
 - Review accessibility and responsive behavior.
-- Add frontend tests for critical interactions.
+- Add tests for critical frontend interactions.
 
-### Acceptance Criteria
-- Dashboard figures match API responses.
-- Navigation is intuitive and consistent.
-- Loading, empty, error, and success states are implemented.
-- The UI is polished enough for a portfolio demonstration.
+Acceptance criteria for Phase Two:
+- Frontend feature behavior and states are tested with Vitest and React Testing Library.
+- Strict TypeScript, lint, formatting, and production build checks pass.
+- UI is accessible and usable at mobile and desktop sizes.
 
-## 14. Milestone 10 — Quality, Security, and End-to-End Validation
+## 6. Phase Three — Frontend/Backend Integration
 
-### Tasks
-- Expand unit and integration test coverage for critical behavior.
-- Add Playwright end-to-end tests for essential user journeys.
-- Test registration, login, task CRUD, filtering, and logout.
-- Verify user isolation and authorization boundaries.
-- Review validation, error handling, logging, and secret management.
-- Review API pagination and query behavior.
-- Review keyboard accessibility and responsive layouts.
-- Verify database setup instructions from a clean environment.
-- Review and complete README documentation.
+Begin only after the backend and frontend phases are complete.
 
-### Acceptance Criteria
-- Backend builds and automated tests pass.
-- Frontend linting, type checking, build, and tests pass.
-- Critical end-to-end workflows pass.
-- No known critical authorization defects remain.
-- Setup and test instructions are reproducible.
-- Known limitations are documented honestly.
+Tasks:
+- Connect the frontend API layer to the documented backend API.
+- Configure origins and credentials safely for the selected authentication approach.
+- Verify registration/login, task CRUD, filtering, dashboard, and logout across both applications.
+- Add Playwright end-to-end tests for critical user journeys.
+- Verify denied access and user isolation through the integrated application.
+- Confirm setup instructions work from a clean development environment.
 
-## 15. Deferred Work — Do Not Implement Yet
+Acceptance criteria:
+- The backend and frontend run together with live API data.
+- Critical end-to-end journeys pass.
+- Authentication, authorization, error behavior, and user isolation work across the integration.
+- No mock data substitutes for implemented backend workflows.
 
-The following are intentionally deferred until the application is stable and tested:
+## 7. Deferred Work
+
+Do not introduce these until the core application is stable and tested:
 
 - Docker and Docker Compose
 - CI/CD pipelines
-- Azure App Service deployment
-- Azure SQL deployment configuration
+- Azure deployment
 - SonarQube
 - Microservices
 - Kubernetes
-- Message brokers and distributed processing
+- Message brokers or distributed processing
 - Complex enterprise workflow features
 
-Do not introduce these technologies during earlier milestones unless the project scope is explicitly revised.
+## 8. Working Strategy
 
-## 16. Implementation Strategy
-
-Work in small, reviewable changes. Complete one milestone before moving to the next unless a documented dependency requires a different order.
-
-Prefer a vertical slice when implementing features: domain behavior, application use case, persistence, API, frontend, and tests should fit together coherently.
-
-Do not generate the entire application in a single Copilot prompt. Ask Copilot to inspect the relevant documentation and implement one specific task at a time.
-
-If a requirement is ambiguous, identify the ambiguity and propose options before making a consequential architectural decision.
-
-Keep the project understandable to another developer reviewing the repository for the first time.
+Work in small, reviewable steps. Complete one milestone before moving to the next unless a documented dependency requires otherwise. Prefer clear API contracts and tested boundaries over premature end-to-end wiring. If a requirement is ambiguous or a significant architecture decision is needed, document the options and ask before proceeding.

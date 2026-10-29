@@ -4,7 +4,7 @@ A full-stack task management application built as an independent portfolio proje
 
 ## Project Status
 
-**Current phase:** Application scaffolding. The API health endpoint and frontend shell are in place; product workflows are not implemented yet.
+**Current phase:** Backend completion. The frontend is a scaffold only; no frontend features or frontend/API integration will be implemented until the backend is complete.
 
 The application is being developed incrementally. Features will be implemented, tested, and documented milestone by milestone.
 
@@ -80,7 +80,13 @@ From the repository root:
 dotnet run --project backend/src/TaskManagement.Api/TaskManagement.Api.csproj
 ```
 
+Development settings use a local Windows LocalDB connection by default. To use another SQL Server, provide `ConnectionStrings__DefaultConnection` through an environment variable or development user secrets. Do not put database credentials in committed settings files.
+
+The API does not automatically create or update the database. Database migrations must not be applied without explicit project-owner approval.
+
 ### Frontend
+
+The frontend is currently a standalone scaffold. Frontend feature development and API integration are deferred until the backend is complete.
 
 Use Node.js 20.19 or later in the 20.x line, or 22.12 or later. From the repository root:
 
@@ -99,7 +105,7 @@ npm test
 npm run build
 ```
 
-The frontend does not call the API yet, so it has no environment variables to configure. Database and API configuration will be documented when those integrations are implemented.
+The frontend does not call the API yet, so it has no API environment variables to configure.
 
 ## Documentation
 

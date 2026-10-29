@@ -4,14 +4,20 @@ public sealed class TaskItem
 {
     private readonly TimeProvider _timeProvider;
 
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
     public string Title { get; private set; }
     public string? Description { get; private set; }
     public Enums.TaskStatus Status { get; private set; }
     public Enums.TaskPriority Priority { get; private set; }
     public DateTimeOffset? DueDate { get; private set; }
-    public DateTimeOffset CreatedAtUtc { get; }
+    public DateTimeOffset CreatedAtUtc { get; private set; }
     public DateTimeOffset UpdatedAtUtc { get; private set; }
+
+    private TaskItem()
+    {
+        _timeProvider = TimeProvider.System;
+        Title = string.Empty;
+    }
 
     public TaskItem(
         string title,

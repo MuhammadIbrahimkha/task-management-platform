@@ -1,8 +1,10 @@
+using TaskManagement.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register MVC controllers.
 builder.Services.AddControllers();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // OpenAPI document generation.
 builder.Services.AddOpenApi();
